@@ -198,7 +198,7 @@ public class ImportAgl {
     }
 
     public int getPositionSize(){
-        return mVerticesList.size()*3;
+        return mVerticesList.size();
     }
 
 

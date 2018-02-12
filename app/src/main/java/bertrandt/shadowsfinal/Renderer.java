@@ -154,7 +154,7 @@ public class Renderer implements GLSurfaceView.Renderer {
         public void onSurfaceCreated(GL10 unused, EGLConfig config) {
                 mFPSCounter = new FPSCounter();
 
-                drawObj = new DrawObj(mContext, "vw.obj",0 , -6.0f, -2.0f);
+                drawObj = new DrawObj(mContext, "vw.obj",0 , -8.0f, 2.0f);
                 drawAgl = new DrawAgl(mContext, "simplecar.obj",0 , -4.0f, 0);
 
                 // Test OES_depth_texture extension
@@ -439,8 +439,8 @@ public class Renderer implements GLSurfaceView.Renderer {
                 GLES20.glUniformMatrix4fv(shadow_mvpMatrixUniform, 1, false, mLightMvpMatrix_dynamicShapes, 0);
 
                 // Render all moving shapes on scene
-                drawObj.render(shadow_positionAttribute, 0, 0, 0, true);
-                //drawAgl.render(shadow_positionAttribute, 0, 0, 0, true);
+                //drawObj.render(shadow_positionAttribute, 0, 0, 0, true);
+                drawAgl.render(shadow_positionAttribute, 0, 0, 0, true);
                 //mCube.render(shadow_positionAttribute, 0, 0, 0, true);
         }
 
@@ -550,8 +550,8 @@ public class Renderer implements GLSurfaceView.Renderer {
                 //MVP matrix that was used during depth map render
                 GLES20.glUniformMatrix4fv(scene_schadowProjMatrixUniform, 1, false, mLightMvpMatrix_dynamicShapes, 0);
 
-                drawObj.render(scene_positionAttribute, scene_normalAttribute, scene_textureAttribute, scene_texture1Uniform, false);
-                //drawAgl.render(scene_positionAttribute, scene_normalAttribute, scene_textureAttribute, scene_texture1Uniform, false);
+                //drawObj.render(scene_positionAttribute, scene_normalAttribute, scene_textureAttribute, scene_texture1Uniform, false);
+                drawAgl.render(scene_positionAttribute, scene_normalAttribute, scene_textureAttribute, scene_texture1Uniform, false);
         }
 
         /**

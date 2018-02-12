@@ -126,7 +126,7 @@ public class ImportObj {
                 }
             }
         }
-        mObjectTextureHandle = TextureHelper.loadTexture(mContext, R.drawable.vw);
+        mObjectTextureHandle = TextureHelper.loadTexture(mContext, R.drawable.vwlogo);
         GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
     }
 
