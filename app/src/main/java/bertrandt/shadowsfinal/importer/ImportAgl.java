@@ -47,6 +47,7 @@ public class ImportAgl {
     private float mMoveX=0.0f;
     private float mMoveY=0.0f;
     private float mMoveZ=0.0f;
+    private float mScale=1.0f;
 
     private int mObjectTextureHandle;
 
@@ -59,12 +60,13 @@ public class ImportAgl {
     }
 
     public ImportAgl(Context context, String fileName,
-                     final float moveX, final float moveY, final float moveZ) {
+                     final float moveX, final float moveY, final float moveZ, final float scale) {
         this.mContext = context;
         this.mFileName = fileName;
         this.mMoveX = moveX;
         this.mMoveY = moveY;
         this.mMoveZ = moveZ;
+        this.mScale = scale;
         readRaw();
         allocateBuffer();
         populateBuffer();
@@ -134,9 +136,9 @@ public class ImportAgl {
             float y = Float.parseFloat(coords[2]);
             float z = Float.parseFloat(coords[3]);
             //Log.i(TAG, "ObjectLoader: Position:  x: " + x + " y: " + y + " z: " + z);
-            mVerticesBuffer.put(x);
-            mVerticesBuffer.put(y);
-            mVerticesBuffer.put(z);
+            mVerticesBuffer.put((x+mMoveX)*mScale/2);
+            mVerticesBuffer.put((y+mMoveY)*mScale/2);
+            mVerticesBuffer.put((z+mMoveZ)*mScale/2);
         }
         mVerticesBuffer.position(0);
 
@@ -177,7 +179,7 @@ public class ImportAgl {
         }
         mTexelsBuffer.position(0);
 
-        mObjectTextureHandle = TextureHelper.loadTexture(mContext, R.drawable.gte);
+        mObjectTextureHandle = TextureHelper.loadTexture(mContext, R.drawable.touareg);
         GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
     }
 

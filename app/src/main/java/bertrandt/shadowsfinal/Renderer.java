@@ -154,8 +154,8 @@ public class Renderer implements GLSurfaceView.Renderer {
         public void onSurfaceCreated(GL10 unused, EGLConfig config) {
                 mFPSCounter = new FPSCounter();
 
-                drawObj = new DrawObj(mContext, "vw.obj",0 , -8.0f, 2.0f);
-                drawAgl = new DrawAgl(mContext, "simplecar.obj",0 , -4.0f, 0);
+                drawObj = new DrawObj(mContext, "simplecartouareg.obj",0.0f , 0.0f, 0.0f, 8.0f);
+                drawAgl = new DrawAgl(mContext, "simplecartouareg.obj",0.0f , 0.0f, 0.0f, 8.0f);
 
                 // Test OES_depth_texture extension
                 String extensions = GLES20.glGetString(GLES20.GL_EXTENSIONS);
@@ -425,6 +425,8 @@ public class Renderer implements GLSurfaceView.Renderer {
 
                 // Calculate matrices for moving objects
 
+                Matrix.translateM(mModelMatrix,0,0.0f,-2.0f,0.0f);
+
                 // Rotate the model matrix with current rotation matrix
                 Matrix.multiplyMM(tempResultMatrix, 0, mModelMatrix, 0, mCubeRotation, 0);
 
@@ -438,9 +440,10 @@ public class Renderer implements GLSurfaceView.Renderer {
                 // Pass in the combined matrix.
                 GLES20.glUniformMatrix4fv(shadow_mvpMatrixUniform, 1, false, mLightMvpMatrix_dynamicShapes, 0);
 
+
                 // Render all moving shapes on scene
-                //drawObj.render(shadow_positionAttribute, 0, 0, 0, true);
-                drawAgl.render(shadow_positionAttribute, 0, 0, 0, true);
+                drawObj.render(shadow_positionAttribute, 0, 0, 0, true);
+                //drawAgl.render(shadow_positionAttribute, 0, 0, 0, true);
                 //mCube.render(shadow_positionAttribute, 0, 0, 0, true);
         }
 
@@ -518,6 +521,8 @@ public class Renderer implements GLSurfaceView.Renderer {
                 // - Normal matrix
                 // - Light MVP matrix for dynamic objects
 
+                Matrix.translateM(mModelMatrix,0,0.0f,-2.0f,0.0f);
+
                 // Rotate the model matrix with current rotation matrix
                 Matrix.multiplyMM(tempResultMatrix, 0, mModelMatrix, 0, mCubeRotation, 0);
 
@@ -550,8 +555,9 @@ public class Renderer implements GLSurfaceView.Renderer {
                 //MVP matrix that was used during depth map render
                 GLES20.glUniformMatrix4fv(scene_schadowProjMatrixUniform, 1, false, mLightMvpMatrix_dynamicShapes, 0);
 
-                //drawObj.render(scene_positionAttribute, scene_normalAttribute, scene_textureAttribute, scene_texture1Uniform, false);
-                drawAgl.render(scene_positionAttribute, scene_normalAttribute, scene_textureAttribute, scene_texture1Uniform, false);
+
+                drawObj.render(scene_positionAttribute, scene_normalAttribute, scene_textureAttribute, scene_texture1Uniform, false);
+                //drawAgl.render(scene_positionAttribute, scene_normalAttribute, scene_textureAttribute, scene_texture1Uniform, false);
         }
 
         /**

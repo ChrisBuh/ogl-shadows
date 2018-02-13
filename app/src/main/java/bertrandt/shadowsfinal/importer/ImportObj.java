@@ -44,6 +44,7 @@ public class ImportObj {
     private float mMoveX=0.0f;
     private float mMoveY=0.0f;
     private float mMoveZ=0.0f;
+    private float mScale=1.0f;
 
     private int mObjectTextureHandle;
 
@@ -56,12 +57,13 @@ public class ImportObj {
     }
 
     public ImportObj(Context context, String fileName,
-            final float moveX, final float moveY, final float moveZ) {
+            final float moveX, final float moveY, final float moveZ, final float scale) {
         this.mContext = context;
         this.mFileName = fileName;
         this.mMoveX = moveX;
         this.mMoveY = moveY;
         this.mMoveZ = moveZ;
+        this.mScale = scale;
         readRaw();
         allocateBuffer();
         populateBuffer();
@@ -112,21 +114,20 @@ public class ImportObj {
                 String normal[] = mNormalsList.get(Integer.valueOf(element[2]) - 1).split(" ");
                 String texel[] = mTexelsList.get(Integer.valueOf(element[1]) - 1).split(" ");
 
-                Log.i(TAG, "populateBuffer: " + vertice[0] + " " + vertice[1] + " " + vertice[2]);
+                //Log.i(TAG, "populateBuffer: " + vertice[0] + " " + vertice[1] + " " + vertice[2]);
 
-                mVerticesBuffer.put(Float.parseFloat(vertice[0])+mMoveX);
-                mVerticesBuffer.put(Float.parseFloat(vertice[1])+mMoveY);
-                mVerticesBuffer.put(Float.parseFloat(vertice[2])+mMoveZ);
+                mVerticesBuffer.put((Float.parseFloat(vertice[0])+mMoveX)*mScale/2);
+                mVerticesBuffer.put((Float.parseFloat(vertice[1])+mMoveY)*mScale/2);
+                mVerticesBuffer.put((Float.parseFloat(vertice[2])+mMoveZ)*mScale/2);
 
                 for (String value : normal) {
                     mNormalsBuffer.put(Float.parseFloat(value));
                 }
-                for (String value : texel) {
-                    mTexelsBuffer.put(Float.parseFloat(value));
-                }
+                mTexelsBuffer.put(Float.parseFloat(texel[0]));
+                mTexelsBuffer.put(Float.parseFloat(texel[1]));
             }
         }
-        mObjectTextureHandle = TextureHelper.loadTexture(mContext, R.drawable.vwlogo);
+        mObjectTextureHandle = TextureHelper.loadTexture(mContext, R.drawable.touareg);
         GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
     }
 

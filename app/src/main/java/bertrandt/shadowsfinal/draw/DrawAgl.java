@@ -23,9 +23,9 @@ public class DrawAgl {
     }
 
     public DrawAgl(final Context context, final String fileName,
-                   final float moveX, final float moveY, final float moveZ) {
+                   final float moveX, final float moveY, final float moveZ, final float scale) {
 
-        mImportAgl = new ImportAgl(context, fileName);
+        mImportAgl = new ImportAgl(context, fileName, moveX, moveY, moveZ, scale);
         initialised = true;
 
     }

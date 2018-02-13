@@ -24,9 +24,9 @@ public class DrawObj {
     }
 
     public DrawObj(final Context context, final String fileName,
-                   final float moveX, final float moveY, final float moveZ) {
+                   final float moveX, final float moveY, final float moveZ, final float scale) {
 
-        mImportObj = new ImportObj(context, fileName);
+        mImportObj = new ImportObj(context, fileName, moveX, moveY, moveZ, scale);
         initialised = true;
 
     }
